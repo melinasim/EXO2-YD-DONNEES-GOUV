@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> Données du territoire français - EXOS2</title>
+  <script src="./JS/data-france.js" type="module"></script>
+</head>
+<body>
+    
+  <h1>Données du territoire français</h1>
+  <p> Cette interface permet d'afficher le nombre d'habitants des communes du territoire français, ainsi que le code postal associé à cette commune.
+    <br> Pour afficher les données , veuillez commencer par sélectionner la région souhaitée</p>
+  <br>
+  <div class="container">
+    <form name="form1" id="form1" action="/action_page.php">
+    Region: <select name="region" id="region">
+        <option value="" selected="selected">...Sélectionner la région</option>
+      </select>
+      <br><br>
+    Département: <select name="dpt" id="dpt">
+        <option value="" selected="selected">... Veuillez d'abord sélectionner la région</option>
+      </select>
+      <br><br>
+    Commune: <select name="commune" id="commune">
+        <option value="" selected="selected">...Veuillez d'abord sélectionner la commune</option>
+      </select>
+      <br><br>
+    </form>
+    <section id="communeData" class="row">
+
+    </section>
+</div>
+  </body>
+</html>
