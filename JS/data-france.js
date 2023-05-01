@@ -1,3 +1,10 @@
+// doc dans classes: are they usefull?? don'tthink so
+// voir autresa suppromier? eg global variables section_commune
+// finir de commenter le pgm
+// supprimer tous les console.log
+// faire un cadre autour des données affichées
+
+
 import createMarkup from "./utils/utils.js";
 import CommuneArt from "./classes/Commune.js";
 
@@ -143,12 +150,13 @@ async function GetCommuneData() {
         })
         .catch((error) => console.log(`Erreur attrapée : `, error));
 
-    // juste pour verifier les donnees dans la console - a supprimer du pgm final
-    //console.log(fetchCommuneData.nom);
-    //console.log(fetchCommuneData.code);
-    //console.log(fetchCommuneData.codesPostaux[0]);
-    //console.log(fetchCommuneData.population);
-    // fin du block a supprimer
+        communeData = fetchCommuneData;
+        // juste pour verifier les donnees dans la console - a supprimer du pgm final
+        //console.log(communeData.nom);
+        //console.log(communeData.code);
+        //console.log(communeData.codesPostaux[0]);
+        //console.log(communeData.population);
+        // fin du block a supprimer
 }
 
 /**************************************************************************************** */
@@ -198,11 +206,31 @@ regionSel.onchange = async function () {
             console.log(communeSel.value, ' | ', communecode);
                        
             /* get equested data from the selected 'commune' from the gouv.fr API using the 'commune' code */
-            const c = await GetCommuneData(communecode);
-            /* empty section_commune in case other data already in */
-            //
-            section_commune.innerHTML = "";
-            new commune-art(c.name,c.codePostal, c.population);
+            await GetCommuneData(communecode);
+            console.log(communeData.nom, ' | ', communeData.code, ' | ', communeData.codesPostaux[0], ' | ', communeData.population);
+
+            /* create the section where the data will be displayed */
+            //const main = document.createElement('main');
+            //document.body.appendChild(main);
+            //const section_data = createMarkup('section', '',main);a_article);
+          
+            // On vide tous les éléments qui seraient déjà dans la section universities
+            //section_data.innerHTML = "";
+
+            /* display requested data from commune: nom, population, code postal */
+            const main = document.createElement('main');
+            document.body.appendChild(main);
+            const data_section = createMarkup('section', '',main);
+
+            const data_article = createMarkup("article", "", data_section, [
+                { name: "class", value: "data-art-class" },
+              ]);
+            let articleTitle = createMarkup("h2", communeData.nom, data_article); 
+            let articleData1 = createMarkup("h2", `Population : ${communeData.population}`, data_article);
+            let articleData2 = createMarkup("h3", `Code postal : ${communeData.codesPostaux[0]}`, data_article);
+            
+            
+            
         }
     }
 }
